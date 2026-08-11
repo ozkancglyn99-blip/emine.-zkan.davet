@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="sayfaBasligi">Davetiye</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #111;
-      color: #333;
-      font-family: 'Georgia', serif;
+      background: #0d0d0d;
+      color: #2c2c2c;
+      font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -21,10 +22,11 @@
       position: relative;
       width: 90%;
       max-width: 420px;
-      height: 650px;
+      height: 700px;
       perspective: 1500px;
     }
 
+    /* 3D Kapılar */
     .door {
       position: absolute;
       top: 0;
@@ -34,22 +36,26 @@
       background-position: center;
       z-index: 10;
       transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.85);
     }
     .door-left {
       left: 0;
       transform-origin: left center;
-      border-right: 1px solid rgba(255,255,255,0.2);
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px 0 0 12px;
     }
     .door-right {
       right: 0;
       transform-origin: right center;
-      border-left: 1px solid rgba(255,255,255,0.2);
+      border-left: 1px solid rgba(255,255,255,0.15);
+      transform: scaleX(-1); /* Ayna efekti ile kapıları simetrik yapar */
+      border-radius: 12px 0 0 12px;
     }
 
     .envelope-container.open .door-left { transform: rotateY(-130deg); }
-    .envelope-container.open .door-right { transform: rotateY(130deg); }
+    .envelope-container.open .door-right { transform: scaleX(-1) rotateY(-130deg); }
 
+    /* İç Kart */
     .card {
       position: absolute;
       top: 0;
@@ -59,38 +65,101 @@
       background-size: cover;
       background-position: center;
       border-radius: 12px;
-      padding: 40px 20px;
+      padding: 30px 20px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
+      box-shadow: inset 0 0 25px rgba(0,0,0,0.3);
+      overflow-y: auto;
+    }
+
+    /* Buzlu Cam Efektli Bilgi Paneli */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 15px;
+      padding: 25px 20px;
+      width: 100%;
+      margin-top: auto;
+      margin-bottom: auto;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.5);
       text-align: center;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
     }
 
     .names {
-      font-size: 2.2rem;
-      font-weight: bold;
-      color: #8b0000;
-      margin-top: 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #6b1d2f;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
     }
-    .details {
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      color: #8b5a2b;
+      letter-spacing: 1px;
+      margin: 15px 0 8px 0;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #8b5a2b, transparent);
+      margin: 12px auto;
+      width: 80%;
+    }
+
+    /* Geri Sayım Sayaç Tasarımı */
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+    .time-box {
+      background: #6b1d2f;
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 8px;
+      min-width: 55px;
+    }
+    .time-box .num {
       font-size: 1.1rem;
-      line-height: 1.6;
-      color: #444;
+      font-weight: 600;
+      display: block;
     }
+    .time-box .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .info-text {
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
     .map-btn {
       display: inline-block;
-      padding: 12px 28px;
-      background-color: #8b0000;
+      margin-top: 15px;
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #6b1d2f, #8b263e);
       color: #fff;
       text-decoration: none;
       border-radius: 25px;
-      font-weight: bold;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(107, 29, 47, 0.4);
+      transition: all 0.3s ease;
     }
-    .map-btn:hover { transform: scale(1.05); }
+    .map-btn:hover { transform: translateY(-2px); }
 
     .open-btn {
       position: absolute;
@@ -98,16 +167,18 @@
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 25;
-      padding: 15px 30px;
-      background: #fff;
-      color: #8b0000;
-      border: 2px solid #8b0000;
+      padding: 16px 36px;
+      background: #ffffff;
+      color: #6b1d2f;
+      border: 1px solid #6b1d2f;
       border-radius: 30px;
-      font-size: 1rem;
-      font-weight: bold;
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 2px;
       cursor: pointer;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-      transition: opacity 0.5s;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transition: all 0.4s ease;
     }
 
     #birdCanvas {
@@ -126,50 +197,79 @@
   <div class="envelope-container" id="envelope">
     <div class="door door-left" id="solKapi"></div>
     <div class="door door-right" id="sagKapi"></div>
-    <button class="open-btn" id="openBtn" onclick="davetiyeyiAc()">Davetiyeyi Aç</button>
+    <button class="open-btn" id="openBtn" onclick="davetiyeyiAc()">DAVETİYEYİ AÇ</button>
     <canvas id="birdCanvas"></canvas>
 
     <div class="card" id="kartArkaplan">
-      <div class="names" id="gelinDamat"></div>
-      <div class="details">
-        <p><strong>Tarih:</strong> <span id="tarihSaat"></span></p>
-        <br>
-        <p><strong>Mekan:</strong> <span id="salonAd"></span></p>
-        <p id="adres"></p>
+      <div class="glass-panel">
+        <div class="names" id="gelinDamat"></div>
+        
+        <p class="info-text">Bu mutlu günümüzde sizleri de aramızda görmekten onur duyarız.</p>
+        
+        <div class="divider"></div>
+
+        <div class="section-title">Büyük Güne Kalan Süre</div>
+        <div class="timer">
+          <div class="time-box"><span class="num" id="days">00</span><span class="label">Gün</span></div>
+          <div class="time-box"><span class="num" id="hours">00</span><span class="label">Saat</span></div>
+          <div class="time-box"><span class="num" id="minutes">00</span><span class="label">Dakika</span></div>
+          <div class="time-box"><span class="num" id="seconds">00</span><span class="label">Saniye</span></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section-title">Ailelerimiz</div>
+        <p class="info-text"><strong>Gelin Ailesi:</strong> <span id="gelinAilesi"></span></p>
+        <p class="info-text"><strong>Damat Ailesi:</strong> <span id="damatAilesi"></span></p>
+
+        <div class="divider"></div>
+
+        <div class="section-title">Program & Akış</div>
+        <p class="info-text" id="program"></p>
+
+        <div class="divider"></div>
+
+        <p class="info-text"><strong>Tarih:</strong> <span id="tarihSaat"></span></p>
+        <p class="info-text"><strong>Mekan:</strong> <span id="salonAd"></span> - <span id="adres"></span></p>
+        
+        <a id="haritaLink" href="#" target="_blank" class="map-btn">📍 KONUMA GİT</a>
       </div>
-      <a id="haritaLink" href="#" target="_blank" class="map-btn">📍 Konuma Git</a>
     </div>
   </div>
-
-  <audio id="bgMusic" loop></audio>
 
   <script>
     const MUSTERI_BILGILERI = {
       gelinDamat: "Emine & Özkan",
+      gelinAilesi: "Ayşe & Ali",
+      damatAilesi: "Fatma & Mehmet",
       tarihSaat: "25 Eylül 2026 - 19:00",
+      etkinlikTarihi: "2026-09-25T19:00:00",
       salonAd: "Babil Salonu",
       adres: "Ankara",
+      program: "19:00 Karşılama • 20:00 Nikah • 21:00 Eğlence",
       haritaUrl: "https://maps.google.com",
       
       solKapiGorsel: "https://i.ibb.co/NdXvJ2Fs/sol-kap-png.png",
       sagKapiGorsel: "https://i.ibb.co/NdXvJ2Fs/sol-kap-png.png",
-      kartGorsel: "https://i.ibb.co/vx5B3FS3/kart-arkaplan-png.png",
-      
-      muzikUrl: "https://files.catbox.moe/ORNEK.mp3"
+      kartGorsel: "https://i.ibb.co/vx5B3FS3/kart-arkaplan-png.png"
     };
 
     window.onload = () => {
       document.getElementById('sayfaBasligi').innerText = MUSTERI_BILGILERI.gelinDamat + " Davetiye";
       document.getElementById('gelinDamat').innerText = MUSTERI_BILGILERI.gelinDamat;
+      document.getElementById('gelinAilesi').innerText = MUSTERI_BILGILERI.gelinAilesi;
+      document.getElementById('damatAilesi').innerText = MUSTERI_BILGILERI.damatAilesi;
       document.getElementById('tarihSaat').innerText = MUSTERI_BILGILERI.tarihSaat;
       document.getElementById('salonAd').innerText = MUSTERI_BILGILERI.salonAd;
       document.getElementById('adres').innerText = MUSTERI_BILGILERI.adres;
+      document.getElementById('program').innerText = MUSTERI_BILGILERI.program;
       document.getElementById('haritaLink').href = MUSTERI_BILGILERI.haritaUrl;
       
       document.getElementById('solKapi').style.backgroundImage = `url('${MUSTERI_BILGILERI.solKapiGorsel}')`;
       document.getElementById('sagKapi').style.backgroundImage = `url('${MUSTERI_BILGILERI.sagKapiGorsel}')`;
       document.getElementById('kartArkaplan').style.backgroundImage = `url('${MUSTERI_BILGILERI.kartGorsel}')`;
-      document.getElementById('bgMusic').src = MUSTERI_BILGILERI.muzikUrl;
+
+      geriSayimBaslat();
     };
 
     function davetiyeyiAc() {
@@ -177,9 +277,23 @@
       const openBtn = document.getElementById('openBtn');
       openBtn.style.opacity = '0';
       setTimeout(() => openBtn.style.display = 'none', 500);
-
-      document.getElementById('bgMusic').play().catch(() => {});
       kuslariUcur();
+    }
+
+    function geriSayimBaslat() {
+      const hedefTarih = new Date(MUSTERI_BILGILERI.etkinlikTarihi).getTime();
+      
+      setInterval(() => {
+        const simdi = new Date().getTime();
+        const fark = hedefTarih - simdi;
+
+        if (fark > 0) {
+          document.getElementById('days').innerText = Math.floor(fark / (1000 * 60 * 60 * 24));
+          document.getElementById('hours').innerText = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          document.getElementById('minutes').innerText = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
+          document.getElementById('seconds').innerText = Math.floor((fark % (1000 * 60)) / 1000);
+        }
+      }, 1000);
     }
 
     function kuslariUcur() {
