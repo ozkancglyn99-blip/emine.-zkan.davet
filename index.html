@@ -14,10 +14,10 @@
 
   <style>
     :root {
-      --primary-color: #8D7B68;
+      --primary-color: #ffffff;
       --gold-accent: #D4AF37;
-      --text-dark: #2C3E50;
-      --bg-overlay: rgba(255, 255, 255, 0.92);
+      --text-light: #f8f9fa;
+      --text-muted: #e0e0e0;
     }
 
     * {
@@ -29,7 +29,7 @@
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: #0f0f0f;
-      color: var(--text-dark);
+      color: var(--text-light);
       overflow-x: hidden;
     }
 
@@ -106,49 +106,44 @@
       animation: pulseBtn 2s infinite;
     }
 
-    /* ANA DAVETİYE SAYFASI VE AKICI KATALOG YAPISI */
-    #main-card {
+    /* ANA SAYFA (ŞABLONSUZ / ŞEFFAF / FERAH TASARIM) */
+    #main-content {
       position: relative;
       min-height: 100vh;
-      background: url('kart-arkaplan.png') no-repeat center center fixed;
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), url('kart-arkaplan.png') no-repeat center center fixed;
       background-size: cover;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 50px 15px;
-      gap: 25px;
-    }
-
-    .card-container {
-      background: var(--bg-overlay);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-      max-width: 500px;
-      width: 100%;
-      padding: 35px 25px;
+      padding: 60px 20px;
+      gap: 50px;
       text-align: center;
-      transform: translateY(30px);
-      opacity: 0;
-      transition: all 1s ease 0.3s;
     }
 
-    .card-container.visible {
-      transform: translateY(0);
+    .content-section {
+      max-width: 650px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+
+    .content-section.visible {
       opacity: 1;
+      transform: translateY(0);
     }
 
     .names {
       font-family: 'Great Vibes', cursive;
-      font-size: 3.6rem;
-      color: var(--primary-color);
+      font-size: 4.5rem;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
       margin: 10px 0;
     }
 
     .and-sym {
       font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: var(--gold-accent);
       display: block;
       margin: -10px 0;
@@ -157,44 +152,40 @@
     .families-box {
       display: flex;
       justify-content: space-around;
-      margin: 20px 0;
+      margin: 25px 0;
       padding: 15px 0;
-      border-top: 1px solid rgba(0,0,0,0.08);
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.95rem;
     }
 
     .family-title {
       font-weight: 600;
-      color: var(--primary-color);
-      margin-bottom: 4px;
+      color: var(--gold-accent);
+      margin-bottom: 5px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
     .invite-text {
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       line-height: 1.8;
-      color: #555;
-      margin: 20px 0;
+      color: var(--text-muted);
+      margin: 25px 0;
+      font-weight: 300;
     }
 
-    .details-box {
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 16px;
-      padding: 15px;
-      margin: 20px 0;
-    }
-
-    .detail-item {
-      margin: 10px 0;
-      font-size: 0.95rem;
-      color: #333;
+    .details-list {
+      margin: 30px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      font-size: 1.05rem;
     }
 
     .detail-item i {
-      color: var(--primary-color);
-      margin-right: 8px;
+      color: var(--gold-accent);
+      margin-right: 10px;
     }
 
     /* GERİ SAYIM SAYACI */
@@ -202,94 +193,121 @@
       display: flex;
       justify-content: center;
       gap: 15px;
-      margin-top: 15px;
+      margin-top: 20px;
     }
 
     .countdown-item {
-      background: #ffffff;
-      padding: 10px 14px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      min-width: 65px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 12px 16px;
+      border-radius: 16px;
+      min-width: 70px;
     }
 
     .countdown-number {
       font-family: 'Cinzel', serif;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: var(--primary-color);
+      color: var(--gold-accent);
     }
 
     .countdown-label {
-      font-size: 0.7rem;
-      color: #777;
+      font-size: 0.75rem;
+      color: #ccc;
       text-transform: uppercase;
     }
 
-    .actions {
+    /* BUTONLAR */
+    .btn-group {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
       margin-top: 25px;
     }
 
     .action-btn {
-      padding: 13px 20px;
-      border-radius: 12px;
-      border: none;
-      background: #ffffff;
-      color: var(--text-dark);
-      font-weight: 600;
-      font-size: 0.9rem;
+      padding: 14px 28px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(5px);
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.95rem;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 10px;
       text-decoration: none;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .action-btn:hover {
-      background: var(--primary-color);
-      color: #fff;
+      background: #ffffff;
+      color: #111;
+      transform: translateY(-2px);
     }
 
-    /* MÜZİK KONTROLÜ */
+    .action-btn.success {
+      border-color: #2ec4b6;
+      background: rgba(46, 196, 182, 0.2);
+    }
+
+    .action-btn.danger {
+      border-color: #e71d36;
+      background: rgba(231, 29, 54, 0.2);
+    }
+
+    /* FOTOĞRAF YÜKLEME ALANI */
+    .upload-box {
+      border: 2px dashed rgba(212, 175, 55, 0.5);
+      border-radius: 20px;
+      padding: 30px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      margin-top: 20px;
+    }
+
+    /* AÇ/KAPA MÜZİK KONTROLÜ */
     #music-control {
       position: fixed;
       bottom: 25px;
       right: 25px;
       z-index: 10000;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid var(--gold-accent);
       width: 50px;
       height: 50px;
       border-radius: 50%;
       display: none;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       cursor: pointer;
-      border: 2px solid var(--gold-accent);
-      text-decoration: none;
     }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
     @media (max-width: 480px) {
-      .intro-title { font-size: 3.2rem; }
-      .names { font-size: 3rem; }
+      .names { font-size: 3.5rem; }
+      .intro-title { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- MÜZİK KONTROL BUTONU (YouTube Müzik Linki) -->
-  <a id="music-control" href="https://www.youtube.com/watch?v=xRtIpdqUO8E" target="_blank" title="Müziği Dinle (Lvbel C5)">
-    <i class="fas fa-music" style="color: var(--primary-color); font-size: 1.2rem;"></i>
-  </a>
+  <!-- ROMANTİK ARKA PLAN MÜZİĞİ -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=wedding-112521.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- MÜZİK AÇ / KAPA BUTONU -->
+  <div id="music-control" onclick="toggleMusic()" title="Müziği Aç / Kapat">
+    <i id="music-icon" class="fas fa-volume-up" style="color: var(--gold-accent); font-size: 1.2rem;"></i>
+  </div>
 
   <!-- VİDEO İNTRO EKRANI -->
   <div id="intro-screen">
@@ -304,18 +322,17 @@
     </div>
   </div>
 
-  <!-- ANA DAVETİYE KATALOG SAYFASI -->
-  <div id="main-card">
+  <!-- ANA DAVETİYE SAYFASI (ŞABLONSUZ) -->
+  <div id="main-content">
     
-    <!-- 1. KART: ANA BİLGİLER -->
-    <div class="card-container" id="cardContainer">
-      <p style="letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; color: #777;">Düğün Davetiyesi</p>
+    <!-- 1. BÖLÜM: BAŞLIK VE İSİMLER -->
+    <div class="content-section" id="section1">
+      <p style="letter-spacing: 4px; font-size: 0.85rem; text-transform: uppercase; color: var(--gold-accent);">Düğün Davetiyesi</p>
       
       <h1 class="names">Emine</h1>
       <span class="and-sym">&</span>
       <h1 class="names">Özkan</h1>
 
-      <!-- AİLE BİLGİLERİ -->
       <div class="families-box">
         <div>
           <div class="family-title">Gelin Ailesi</div>
@@ -331,7 +348,7 @@
         Bu mutlu günümüzde siz değerli dostlarımızı ve yakınlarımızı aramızda görmekten onur duyarız.
       </p>
 
-      <div class="details-box">
+      <div class="details-list">
         <div class="detail-item">
           <i class="far fa-calendar-alt"></i> <strong>Tarih & Saat:</strong> 07.07.2027 - SAAT: 19:00
         </div>
@@ -344,7 +361,7 @@
       </div>
 
       <!-- GERİ SAYIM SAYACI -->
-      <p style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-top: 15px;">Düğüne Kalan Süre</p>
+      <p style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #aaa; margin-top: 20px;">Düğüne Kalan Süre</p>
       <div class="countdown-box">
         <div class="countdown-item"><div class="countdown-number" id="days">00</div><div class="countdown-label">Gün</div></div>
         <div class="countdown-item"><div class="countdown-number" id="hours">00</div><div class="countdown-label">Saat</div></div>
@@ -352,58 +369,112 @@
         <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Saniye</div></div>
       </div>
 
-      <div class="actions">
+      <div class="btn-group">
         <a href="https://www.google.com/maps/place/Boran+Park+Sincan+D%C3%BC%C4%9F%C3%BCn+Salonlar%C4%B1/@39.948195,32.553265,14z" target="_blank" class="action-btn">
-          <i class="fas fa-location-arrow"></i> Haritada Gör / Yol Tarifi Al
-        </a>
-        <a href="https://www.youtube.com/watch?v=xRtIpdqUO8E" target="_blank" class="action-btn">
-          <i class="fab fa-youtube" style="color: #ff0000;"></i> Müziği Dinle (Lvbel C5)
+          <i class="fas fa-location-arrow" style="color: var(--gold-accent);"></i> Harita & Yol Tarifi
         </a>
       </div>
     </div>
 
-    <!-- 2. KART: PROGRAM AKIŞI -->
-    <div class="card-container">
-      <h2 style="font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--primary-color); margin-bottom: 20px; letter-spacing: 1px;">Düğün Program Akışı</h2>
+    <!-- 2. BÖLÜM: LCV / KATILIM DURUMU -->
+    <div class="content-section">
+      <h2 style="font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold-accent); margin-bottom: 15px;">Katılım Durumu (LCV)</h2>
+      <p style="color: #ccc; font-size: 0.95rem; margin-bottom: 15px;">Lütfen düğünümüze katılım durumunuzu bildiriniz.</p>
       
-      <div style="text-align: left; display: flex; flex-direction: column; gap: 15px;">
-        <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
-          <i class="fas fa-heart" style="color: var(--gold-accent);"></i>
-          <span>Gelin & Damat Giriş Dansı</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
-          <i class="fas fa-glass-cheers" style="color: var(--gold-accent);"></i>
-          <span>Devam Eden Etkinlikler</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
-          <i class="fas fa-gift" style="color: var(--gold-accent);"></i>
-          <span>Takı Töreni</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
-          <i class="fas fa-compact-disc" style="color: var(--gold-accent);"></i>
-          <span>After Party</span>
-        </div>
+      <div class="btn-group">
+        <button class="action-btn success" onclick="confirmAttendance(true)">
+          <i class="fas fa-check-circle"></i> Katılıyorum
+        </button>
+        <button class="action-btn danger" onclick="confirmAttendance(false)">
+          <i class="fas fa-times-circle"></i> Katılamıyorum
+        </button>
+      </div>
+      <p id="lcv-response" style="margin-top: 15px; color: var(--gold-accent); font-weight: 500; display: none;"></p>
+    </div>
+
+    <!-- 3. BÖLÜM: PROGRAM AKIŞI -->
+    <div class="content-section">
+      <h2 style="font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold-accent); margin-bottom: 25px;">Program Akışı</h2>
+      
+      <div style="display: flex; flex-direction: column; gap: 20px; font-size: 1rem;">
+        <div><i class="fas fa-heart" style="color: var(--gold-accent);"></i> Gelin & Damat Giriş Dansı</div>
+        <div><i class="fas fa-glass-cheers" style="color: var(--gold-accent);"></i> Devam Eden Etkinlikler</div>
+        <div><i class="fas fa-gift" style="color: var(--gold-accent);"></i> Takı Töreni</div>
+        <div><i class="fas fa-compact-disc" style="color: var(--gold-accent);"></i> After Party</div>
+      </div>
+    </div>
+
+    <!-- 4. BÖLÜM: FOTOĞRAF YÜKLEME ALANI -->
+    <div class="content-section">
+      <div class="upload-box">
+        <i class="fas fa-camera" style="font-size: 2.5rem; color: var(--gold-accent); margin-bottom: 15px;"></i>
+        <h3 style="font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 10px;">Düğün Anılarınızı Paylaşın</h3>
+        <p style="color: #ccc; font-size: 0.85rem; margin-bottom: 20px;">Düğün günü çektiğiniz güzel fotoğrafları buraya yükleyerek bizimle paylaşabilirsiniz!</p>
+        
+        <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="handlePhotoUpload()">
+        <button class="action-btn" onclick="document.getElementById('photoInput').click()" style="margin: 0 auto;">
+          <i class="fas fa-cloud-upload-alt" style="color: var(--gold-accent);"></i> Fotoğraf Yükle
+        </button>
+        <p id="upload-status" style="margin-top: 12px; font-size: 0.85rem; color: #2ec4b6; display: none;"></p>
       </div>
     </div>
 
   </div>
 
   <script>
+    const bgMusic = document.getElementById('bgMusic');
+    const musicControl = document.getElementById('music-control');
+    const musicIcon = document.getElementById('music-icon');
+
     function openInvitation() {
       // Intro ekranını kapat
       const intro = document.getElementById('intro-screen');
       intro.style.opacity = '0';
       intro.style.visibility = 'hidden';
 
-      // Kartları görünür yap
-      const cards = document.querySelectorAll('.card-container');
-      cards.forEach(card => card.classList.add('visible'));
+      // Sayfa bölümlerini görünür yap
+      const sections = document.querySelectorAll('.content-section');
+      sections.forEach(sec => sec.classList.add('visible'));
 
-      // Müzik butonunu göster
-      document.getElementById('music-control').style.display = 'flex';
+      // Müziği başlat ve butonunu göster
+      musicControl.style.display = 'flex';
+      bgMusic.play().then(() => {
+        musicIcon.className = "fas fa-volume-up";
+      }).catch(err => {
+        console.log("Müzik engellendi:", err);
+      });
     }
 
-    // GERİ SAYIM HESAPLAMA (07.07.2027 19:00)
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicIcon.className = "fas fa-volume-up";
+      } else {
+        bgMusic.pause();
+        musicIcon.className = "fas fa-volume-mute";
+      }
+    }
+
+    function confirmAttendance(status) {
+      const resp = document.getElementById('lcv-response');
+      resp.style.display = 'block';
+      if(status) {
+        resp.innerText = "Harika! Mutluluğumuzu sizinle paylaşmayı sabırsızlıkla bekliyoruz. ✨";
+      } else {
+        resp.innerText = "Yanımızda olamayacağınız için üzgünüz, güzel dilekleriniz için teşekkür ederiz. ❤️";
+      }
+    }
+
+    function handlePhotoUpload() {
+      const input = document.getElementById('photoInput');
+      const status = document.getElementById('upload-status');
+      if (input.files.length > 0) {
+        status.style.display = 'block';
+        status.innerText = "Fotoğrafınız başarıyla yüklendi, teşekkür ederiz! 📸";
+      }
+    }
+
+    // GERİ SAYIM SAYACI (07.07.2027 19:00)
     const targetDate = new Date("2027-07-07T19:00:00").getTime();
 
     function updateCountdown() {
