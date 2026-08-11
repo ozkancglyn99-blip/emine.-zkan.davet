@@ -104,7 +104,7 @@
       overflow-y: auto;
       overflow-x: hidden;
       scroll-snap-type: y mandatory;
-      display: none; /* Açılana kadar gizli */
+      display: none;
       opacity: 0;
       transition: opacity 1s ease;
     }
@@ -122,7 +122,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 30px 20px;
+      padding: 40px 20px;
       position: relative;
     }
 
@@ -208,7 +208,7 @@
       opacity: 0.85;
     }
 
-    /* Akış / Program Listesi (Timeline) */
+    /* Akış / Program Listesi */
     .timeline {
       text-align: left;
       margin: 15px 0;
@@ -239,23 +239,57 @@
       line-height: 1.6;
     }
 
-    .map-btn {
-      display: inline-block;
-      margin-top: 18px;
-      padding: 14px 32px;
-      background: linear-gradient(135deg, #6b1d2f, #8b263e);
+    /* Buton Tasarımları */
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px 20px;
       color: #fff;
       text-decoration: none;
-      border-radius: 30px;
-      font-size: 0.9rem;
+      border-radius: 25px;
+      font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 1px;
-      box-shadow: 0 5px 20px rgba(107, 29, 47, 0.4);
-      transition: transform 0.2s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      transition: transform 0.2s, background 0.2s;
     }
-    .map-btn:hover { transform: scale(1.04); }
+    .btn:hover { transform: scale(1.02); }
 
-    /* Scroll Indikatörü (Aşağı Kaydır Oku) */
+    .btn-main { background: linear-gradient(135deg, #6b1d2f, #8b263e); }
+    .btn-whatsapp-bride { background: linear-gradient(135deg, #d4a373, #a9714b); }
+    .btn-whatsapp-groom { background: linear-gradient(135deg, #4a6fa5, #2b4c7e); }
+    .btn-camera { background: linear-gradient(135deg, #2a9d8f, #1d7064); }
+
+    /* Müzik Butonu (Yüzen Buton) */
+    .music-toggle {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 50;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #6b1d2f;
+      color: #6b1d2f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      display: none;
+    }
+    .music-toggle.playing {
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Scroll Indikatörü */
     .scroll-indicator {
       position: absolute;
       bottom: 25px;
@@ -269,10 +303,7 @@
       letter-spacing: 1px;
       animation: bounce 2s infinite;
     }
-    .scroll-indicator span {
-      font-size: 1.2rem;
-      margin-top: 2px;
-    }
+    .scroll-indicator span { font-size: 1.2rem; margin-top: 2px; }
 
     @keyframes bounce {
       0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
@@ -289,7 +320,11 @@
     <button class="open-btn" id="openBtn" onclick="davetiyeyiAc()">DAVETİYEYİ AÇ</button>
     <canvas id="birdCanvas"></canvas>
 
-    <!-- Aşağı Doğru Kaydırılabilir Lüks Sayfa Yapısı -->
+    <!-- Müzik Kutusu -->
+    <button class="music-toggle" id="musicBtn" onclick="muzikKoyDurdur()">🎵</button>
+    <audio id="bgMusic" loop></audio>
+
+    <!-- Kaydırılabilir Lüks Sayfa -->
     <div class="card-scrollable" id="kartArkaplan">
       
       <!-- HERO BÖLÜMÜ -->
@@ -331,6 +366,27 @@
         </div>
       </div>
 
+      <!-- KATILIM BİLDİRİMİ (LCV / WHATSAPP) -->
+      <div class="section">
+        <div class="glass-card">
+          <div class="section-title">Katılım Durumu (LCV)</div>
+          <p class="info-text" style="margin-bottom: 15px;">Düğünümüze katılıp katılamayacağınızı tarafımıza bildirmenizi rica ederiz.</p>
+          <div class="divider"></div>
+          <a id="gelinLcvLink" href="#" target="_blank" class="btn btn-whatsapp-bride">🌸 Kız Tarafı Katılım Bildir</a>
+          <a id="damatLcvLink" href="#" target="_blank" class="btn btn-whatsapp-groom">🎩 Erkek Tarafı Katılım Bildir</a>
+        </div>
+      </div>
+
+      <!-- KAMERA / FOTOĞRAF YÜKLEME ALANI -->
+      <div class="section">
+        <div class="glass-card">
+          <div class="section-title">Fotoğraf Anıları</div>
+          <p class="info-text" style="margin-bottom: 15px;">Düğün günümüzde çektiğiniz en güzel kareleri bizimle paylaşın!</p>
+          <div class="divider"></div>
+          <a id="fotoYukleLink" href="#" target="_blank" class="btn btn-camera">📸 Fotoğraf / Video Yükle</a>
+        </div>
+      </div>
+
       <!-- TARİH & MEKAN BÖLÜMÜ -->
       <div class="section">
         <div class="glass-card">
@@ -339,7 +395,7 @@
           <p class="info-text" style="margin-bottom: 10px;"><strong>Tarih:</strong> <br><span id="tarihSaat"></span></p>
           <p class="info-text"><strong>Mekan:</strong> <br><span id="salonAd"></span> - <span id="adres"></span></p>
           
-          <a id="haritaLink" href="#" target="_blank" class="map-btn">📍 HARİTADA GÖR / KONUM</a>
+          <a id="haritaLink" href="#" target="_blank" class="btn btn-main" style="margin-top: 18px;">📍 HARİTADA GÖR / KONUM</a>
         </div>
       </div>
 
@@ -350,7 +406,7 @@
     const MUSTERI_BILGILERI = {
       gelinDamat: "Emine & Özkan",
       gelinAilesi: "Nazan & Yasin",
-      damatAilesi: "Nuran & Erol",
+      damatAilesi: "Nuray & Erol",
       tarihSaat: "07.07.2027 - Saat 19:00",
       etkinlikTarihi: "2027-07-07T19:00:00",
       salonAd: "Boran Park Düğün Salonu",
@@ -365,10 +421,21 @@
       ],
       haritaUrl: "https://www.google.com/maps/place/Boran+Park+Sincan+D%C3%BC%C4%9F%C3%BCn+Salonlar%C4%B1/@39.9511082,32.5378026,15z/data=!4m20!1m13!4m12!1m3!2m2!1d32.5451776!2d39.9540224!1m6!1m2!1s0x14d33bb7ebba2e65:0x19126fc6b5f9ef3f!2zQm9yYW4gUGFyayBTaW5jYW4gRMO8xJ_DvG4gU2Fsb25sYXLEsSwgWWVuacOnaW3Fn2l0LCDDh2ltxZ9pdCBTZXJwbWVsZXJpIE5vOjY1LCAwNjkzMCBTaW5jYW4vQW5rYXJh!2m2!1d32.553265!2d39.948195!3e0!3m5!1s0x14d33bb7ebba2e65:0x19126fc6b5f9ef3f!8m2!3d39.948195!4d32.553265!16s%2Fg%2F11p56g1qsw",
       
+      // WhatsApp LCV Numaraları (Başına 90 ekleyerek yazın)
+      gelinTelefon: "905000000000",
+      damatTelefon: "905000000000",
+      
+      // Fotoğraf yükleme linki (Google Drive / Photos veya özel link)
+      fotoYukleUrl: "https://photos.google.com",
+
+      // Görseller & Müzik
       solKapiGorsel: "https://i.ibb.co/NdXvJ2Fs/sol-kap-png.png",
       sagKapiGorsel: "https://i.ibb.co/bgNQ9S7h/sag-kap-png.png",
-      kartGorsel: "https://i.ibb.co/vx5B3FS3/kart-arkaplan-png.png"
+      kartGorsel: "https://i.ibb.co/vx5B3FS3/kart-arkaplan-png.png",
+      muzikUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
     };
+
+    let isPlaying = false;
 
     window.onload = () => {
       document.getElementById('sayfaBasligi').innerText = MUSTERI_BILGILERI.gelinDamat + " Davetiye";
@@ -379,8 +446,14 @@
       document.getElementById('salonAd').innerText = MUSTERI_BILGILERI.salonAd;
       document.getElementById('adres').innerText = MUSTERI_BILGILERI.adres;
       document.getElementById('haritaLink').href = MUSTERI_BILGILERI.haritaUrl;
+      document.getElementById('fotoYukleLink').href = MUSTERI_BILGILERI.fotoYukleUrl;
+
+      // WhatsApp Katılım Linkleri
+      const mesaj = encodeURIComponent(`Merhaba, ${MUSTERI_BILGILERI.gelinDamat} düğünü için katılım durumumu bildirmek istiyorum.`);
+      document.getElementById('gelinLcvLink').href = `https://wa.me/${MUSTERI_BILGILERI.gelinTelefon}?text=${mesaj}`;
+      document.getElementById('damatLcvLink').href = `https://wa.me/${MUSTERI_BILGILERI.damatTelefon}?text=${mesaj}`;
       
-      // Program Akışını Hazırla
+      // Program Akışını Oluştur
       const timelineContainer = document.getElementById('programTimeline');
       MUSTERI_BILGILERI.programMaddeleri.forEach(madde => {
         const item = document.createElement('div');
@@ -393,6 +466,10 @@
       document.getElementById('sagKapi').style.backgroundImage = `url('${MUSTERI_BILGILERI.sagKapiGorsel}')`;
       document.getElementById('kartArkaplan').style.backgroundImage = `url('${MUSTERI_BILGILERI.kartGorsel}')`;
 
+      if(MUSTERI_BILGILERI.muzikUrl) {
+        document.getElementById('bgMusic').src = MUSTERI_BILGILERI.muzikUrl;
+      }
+
       geriSayimBaslat();
       scrollAnimasyonuAyarla();
     };
@@ -402,7 +479,30 @@
       const openBtn = document.getElementById('openBtn');
       openBtn.style.opacity = '0';
       setTimeout(() => openBtn.style.display = 'none', 500);
+
+      const musicBtn = document.getElementById('musicBtn');
+      if(MUSTERI_BILGILERI.muzikUrl) {
+        musicBtn.style.display = 'flex';
+        muzikKoyDurdur();
+      }
+
       kuslariUcur();
+    }
+
+    function muzikKoyDurdur() {
+      const audio = document.getElementById('bgMusic');
+      const musicBtn = document.getElementById('musicBtn');
+
+      if (isPlaying) {
+        audio.pause();
+        musicBtn.classList.remove('playing');
+        isPlaying = false;
+      } else {
+        audio.play().then(() => {
+          musicBtn.classList.add('playing');
+          isPlaying = true;
+        }).catch(() => {});
+      }
     }
 
     function geriSayimBaslat() {
@@ -421,7 +521,6 @@
       }, 1000);
     }
 
-    /* Sayfa Aşağı Kaydırıldıkça Kartların Belirmesi */
     function scrollAnimasyonuAyarla() {
       const scrollContainer = document.getElementById('kartArkaplan');
       const cards = document.querySelectorAll('.glass-card');
