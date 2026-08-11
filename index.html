@@ -20,13 +20,13 @@
 
     .envelope-container {
       position: relative;
-      width: 90%;
-      max-width: 420px;
-      height: 700px;
+      width: 92%;
+      max-width: 430px;
+      height: 720px;
       perspective: 1500px;
     }
 
-    /* 3D Kapılar */
+    /* 3D Kapı Açılış Efekti */
     .door {
       position: absolute;
       top: 0;
@@ -41,21 +41,20 @@
     .door-left {
       left: 0;
       transform-origin: left center;
-      border-right: 1px solid rgba(255,255,255,0.15);
+      border-right: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px 0 0 12px;
     }
     .door-right {
       right: 0;
       transform-origin: right center;
-      border-left: 1px solid rgba(255,255,255,0.15);
-      transform: scaleX(-1); /* Ayna efekti ile kapıları simetrik yapar */
-      border-radius: 12px 0 0 12px;
+      border-left: 1px solid rgba(255,255,255,0.2);
+      border-radius: 0 12px 12px 0;
     }
 
     .envelope-container.open .door-left { transform: rotateY(-130deg); }
-    .envelope-container.open .door-right { transform: scaleX(-1) rotateY(-130deg); }
+    .envelope-container.open .door-right { transform: rotateY(130deg); }
 
-    /* İç Kart */
+    /* Arka Plan ve İç İçerik */
     .card {
       position: absolute;
       top: 0;
@@ -65,7 +64,7 @@
       background-size: cover;
       background-position: center;
       border-radius: 12px;
-      padding: 30px 20px;
+      padding: 20px 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -73,36 +72,35 @@
       overflow-y: auto;
     }
 
-    /* Buzlu Cam Efektli Bilgi Paneli */
+    /* Okunabilirliği Artıran Cam Panel */
     .glass-panel {
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.90);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border-radius: 15px;
-      padding: 25px 20px;
+      border-radius: 16px;
+      padding: 25px 18px;
       width: 100%;
-      margin-top: auto;
-      margin-bottom: auto;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      margin: auto 0;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.6);
       text-align: center;
     }
 
     .names {
       font-family: 'Cinzel', serif;
-      font-size: 2.1rem;
+      font-size: 2rem;
       font-weight: 700;
       color: #6b1d2f;
       letter-spacing: 1px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     .section-title {
       font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #8b5a2b;
       letter-spacing: 1px;
-      margin: 15px 0 8px 0;
+      margin: 14px 0 6px 0;
       text-transform: uppercase;
       font-weight: 700;
     }
@@ -110,45 +108,45 @@
     .divider {
       height: 1px;
       background: linear-gradient(to right, transparent, #8b5a2b, transparent);
-      margin: 12px auto;
+      margin: 10px auto;
       width: 80%;
     }
 
-    /* Geri Sayım Sayaç Tasarımı */
+    /* Geri Sayım Kutuları */
     .timer {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin: 10px 0;
+      gap: 8px;
+      margin: 8px 0;
     }
     .time-box {
       background: #6b1d2f;
       color: #fff;
-      padding: 8px 10px;
+      padding: 6px 8px;
       border-radius: 8px;
-      min-width: 55px;
+      min-width: 52px;
     }
     .time-box .num {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 600;
       display: block;
     }
     .time-box .label {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       text-transform: uppercase;
-      opacity: 0.8;
+      opacity: 0.85;
     }
 
     .info-text {
-      font-size: 0.9rem;
-      color: #444;
+      font-size: 0.88rem;
+      color: #333;
       line-height: 1.5;
     }
 
     .map-btn {
       display: inline-block;
-      margin-top: 15px;
-      padding: 12px 30px;
+      margin-top: 14px;
+      padding: 12px 28px;
       background: linear-gradient(135deg, #6b1d2f, #8b263e);
       color: #fff;
       text-decoration: none;
@@ -157,9 +155,9 @@
       font-weight: 600;
       letter-spacing: 1px;
       box-shadow: 0 4px 15px rgba(107, 29, 47, 0.4);
-      transition: all 0.3s ease;
+      transition: transform 0.2s;
     }
-    .map-btn:hover { transform: translateY(-2px); }
+    .map-btn:hover { transform: scale(1.03); }
 
     .open-btn {
       position: absolute;
@@ -167,18 +165,18 @@
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 25;
-      padding: 16px 36px;
+      padding: 16px 32px;
       background: #ffffff;
       color: #6b1d2f;
       border: 1px solid #6b1d2f;
       border-radius: 30px;
       font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: 2px;
       cursor: pointer;
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      transition: all 0.4s ease;
+      transition: opacity 0.4s;
     }
 
     #birdCanvas {
@@ -202,12 +200,13 @@
 
     <div class="card" id="kartArkaplan">
       <div class="glass-panel">
+        <!-- 1. Gelin & Damat İsimleri -->
         <div class="names" id="gelinDamat"></div>
-        
         <p class="info-text">Bu mutlu günümüzde sizleri de aramızda görmekten onur duyarız.</p>
         
         <div class="divider"></div>
 
+        <!-- 2. Geri Sayım -->
         <div class="section-title">Büyük Güne Kalan Süre</div>
         <div class="timer">
           <div class="time-box"><span class="num" id="days">00</span><span class="label">Gün</span></div>
@@ -218,17 +217,21 @@
 
         <div class="divider"></div>
 
+        <!-- 3. Aile Bilgileri -->
         <div class="section-title">Ailelerimiz</div>
         <p class="info-text"><strong>Gelin Ailesi:</strong> <span id="gelinAilesi"></span></p>
         <p class="info-text"><strong>Damat Ailesi:</strong> <span id="damatAilesi"></span></p>
 
         <div class="divider"></div>
 
-        <div class="section-title">Program & Akış</div>
+        <!-- 4. Program Akışı -->
+        <div class="section-title">Düğün Akışı</div>
         <p class="info-text" id="program"></p>
 
         <div class="divider"></div>
 
+        <!-- 5. Tarih, Salon ve Konum Bilgisi -->
+        <div class="section-title">Tarih & Mekan</div>
         <p class="info-text"><strong>Tarih:</strong> <span id="tarihSaat"></span></p>
         <p class="info-text"><strong>Mekan:</strong> <span id="salonAd"></span> - <span id="adres"></span></p>
         
@@ -240,18 +243,19 @@
   <script>
     const MUSTERI_BILGILERI = {
       gelinDamat: "Emine & Özkan",
-      gelinAilesi: "Ayşe & Ali",
-      damatAilesi: "Fatma & Mehmet",
-      tarihSaat: "25 Eylül 2026 - 19:00",
-      etkinlikTarihi: "2026-09-25T19:00:00",
-      salonAd: "Babil Salonu",
-      adres: "Ankara",
-      program: "19:00 Karşılama • 20:00 Nikah • 21:00 Eğlence",
-      haritaUrl: "https://maps.google.com",
+      gelinAilesi: "Nazan & Yasin",
+      damatAilesi: "Nuran & Erol",
+      tarihSaat: "07.07.2027 - Saat 19:00",
+      etkinlikTarihi: "2027-07-07T19:00:00",
+      salonAd: "Boran Park Düğün Salonu",
+      adres: "Ankara / Sincan",
+      program: "Giriş • Eğlenceli Oyunlar • Halay & Oyun Havası • Pasta Kesimi • Takı Töreni • After Party",
+      haritaUrl: "https://www.google.com/maps/place/Boran+Park+Sincan+D%C3%BC%C4%9F%C3%BCn+Salonlar%C4%B1/@39.9511082,32.5378026,15z/data=!4m20!1m13!4m12!1m3!2m2!1d32.5451776!2d39.9540224!1m6!1m2!1s0x14d33bb7ebba2e65:0x19126fc6b5f9ef3f!2zQm9yYW4gUGFyayBTaW5jYW4gRMO8xJ_DvG4gU2Fsb25sYXLEsSwgWWVuacOnaW3Fn2l0LCDDh2ltxZ9pdCBTZXJwbWVsZXJpIE5vOjY1LCAwNjkzMCBTaW5jYW4vQW5rYXJh!2m2!1d32.553265!2d39.948195!3e0!3m5!1s0x14d33bb7ebba2e65:0x19126fc6b5f9ef3f!8m2!3d39.948195!4d32.553265!16s%2Fg%2F11p56g1qsw",
       
       solKapiGorsel: "https://i.ibb.co/NdXvJ2Fs/sol-kap-png.png",
-      sagKapiGorsel: "https://i.ibb.co/NdXvJ2Fs/sol-kap-png.png",
-      kartGorsel: "https://i.ibb.co/vx5B3FS3/kart-arkaplan-png.png"
+      sagKapiGorsel: "https://i.ibb.co/bgNQ9S7h/sag-kap-png.png",
+      kartGorsel: "https://i.ibb.co/vx5B3FS3/kart-arkaplan-png.png",
+      muzikUrl: ""
     };
 
     window.onload = () => {
