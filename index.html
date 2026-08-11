@@ -17,7 +17,7 @@
       --primary-color: #8D7B68;
       --gold-accent: #D4AF37;
       --text-dark: #2C3E50;
-      --bg-overlay: rgba(255, 255, 255, 0.88);
+      --bg-overlay: rgba(255, 255, 255, 0.92);
     }
 
     * {
@@ -64,7 +64,7 @@
       z-index: 2;
       text-align: center;
       padding: 25px;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(5px);
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.25);
@@ -115,19 +115,19 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 60px 15px;
-      gap: 30px;
+      padding: 50px 15px;
+      gap: 25px;
     }
 
     .card-container {
       background: var(--bg-overlay);
       backdrop-filter: blur(12px);
       border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
       max-width: 500px;
       width: 100%;
-      padding: 40px 25px;
+      padding: 35px 25px;
       text-align: center;
       transform: translateY(30px);
       opacity: 0;
@@ -143,7 +143,7 @@
       font-family: 'Great Vibes', cursive;
       font-size: 3.6rem;
       color: var(--primary-color);
-      margin: 15px 0;
+      margin: 10px 0;
     }
 
     .and-sym {
@@ -154,22 +154,40 @@
       margin: -10px 0;
     }
 
+    .families-box {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      padding: 15px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      font-size: 0.85rem;
+    }
+
+    .family-title {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
     .invite-text {
       font-size: 0.95rem;
       line-height: 1.8;
       color: #555;
-      margin: 25px 0;
+      margin: 20px 0;
     }
 
     .details-box {
-      border-top: 1px solid rgba(0,0,0,0.08);
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      padding: 20px 0;
-      margin: 25px 0;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      padding: 15px;
+      margin: 20px 0;
     }
 
     .detail-item {
-      margin: 14px 0;
+      margin: 10px 0;
       font-size: 0.95rem;
       color: #333;
     }
@@ -177,6 +195,35 @@
     .detail-item i {
       color: var(--primary-color);
       margin-right: 8px;
+    }
+
+    /* GERİ SAYIM SAYACI */
+    .countdown-box {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .countdown-item {
+      background: #ffffff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      min-width: 65px;
+    }
+
+    .countdown-number {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .countdown-label {
+      font-size: 0.7rem;
+      color: #777;
+      text-transform: uppercase;
     }
 
     .actions {
@@ -215,7 +262,7 @@
       bottom: 25px;
       right: 25px;
       z-index: 10000;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -225,6 +272,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       cursor: pointer;
       border: 2px solid var(--gold-accent);
+      text-decoration: none;
     }
 
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -238,15 +286,10 @@
 </head>
 <body>
 
-  <!-- ARKA PLAN MÜZİĞİ (Lvbel C5 veya Yüklediğin Müzik Dosyası) -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="muzik.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- MÜZİK KONTROL BUTONU -->
-  <div id="music-control" onclick="toggleMusic()">
-    <i id="music-icon" class="fas fa-music" style="color: var(--primary-color); font-size: 1.2rem;"></i>
-  </div>
+  <!-- MÜZİK KONTROL BUTONU (YouTube Müzik Linki) -->
+  <a id="music-control" href="https://www.youtube.com/watch?v=xRtIpdqUO8E" target="_blank" title="Müziği Dinle (Lvbel C5)">
+    <i class="fas fa-music" style="color: var(--primary-color); font-size: 1.2rem;"></i>
+  </a>
 
   <!-- VİDEO İNTRO EKRANI -->
   <div id="intro-screen">
@@ -272,48 +315,73 @@
       <span class="and-sym">&</span>
       <h1 class="names">Özkan</h1>
 
+      <!-- AİLE BİLGİLERİ -->
+      <div class="families-box">
+        <div>
+          <div class="family-title">Gelin Ailesi</div>
+          <div>Nazan & Yasin</div>
+        </div>
+        <div>
+          <div class="family-title">Damat Ailesi</div>
+          <div>Nuray & Erol</div>
+        </div>
+      </div>
+
       <p class="invite-text">
-        Hayatımızın en özel gününde, mutluluğumuzu sizinle paylaşmaktan onur duyarız.
+        Bu mutlu günümüzde siz değerli dostlarımızı ve yakınlarımızı aramızda görmekten onur duyarız.
       </p>
 
       <div class="details-box">
         <div class="detail-item">
-          <i class="far fa-calendar-alt"></i> <strong>Tarih:</strong> 24 Ağustos 2026
+          <i class="far fa-calendar-alt"></i> <strong>Tarih & Saat:</strong> 07.07.2027 - SAAT: 19:00
         </div>
         <div class="detail-item">
-          <i class="far fa-clock"></i> <strong>Saat:</strong> 19:00
+          <i class="fas fa-building"></i> <strong>Mekan:</strong> BORAN PARK DÜĞÜN SALONU
         </div>
         <div class="detail-item">
-          <i class="fas fa-map-marker-alt"></i> <strong>Mekan:</strong> Saray Düğün Salonu
+          <i class="fas fa-map-marker-alt"></i> <strong>Adres:</strong> ANKARA / SİNCAN
         </div>
       </div>
 
+      <!-- GERİ SAYIM SAYACI -->
+      <p style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-top: 15px;">Düğüne Kalan Süre</p>
+      <div class="countdown-box">
+        <div class="countdown-item"><div class="countdown-number" id="days">00</div><div class="countdown-label">Gün</div></div>
+        <div class="countdown-item"><div class="countdown-number" id="hours">00</div><div class="countdown-label">Saat</div></div>
+        <div class="countdown-item"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">Dakika</div></div>
+        <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Saniye</div></div>
+      </div>
+
       <div class="actions">
-        <a href="https://maps.google.com" target="_blank" class="action-btn">
-          <i class="fas fa-location-arrow"></i> Yol Tarifi Al (Harita)
+        <a href="https://www.google.com/maps/place/Boran+Park+Sincan+D%C3%BC%C4%9F%C3%BCn+Salonlar%C4%B1/@39.948195,32.553265,14z" target="_blank" class="action-btn">
+          <i class="fas fa-location-arrow"></i> Haritada Gör / Yol Tarifi Al
         </a>
-        <button class="action-btn" onclick="addToCalendar()">
-          <i class="far fa-calendar-plus"></i> Takvime Ekle
-        </button>
+        <a href="https://www.youtube.com/watch?v=xRtIpdqUO8E" target="_blank" class="action-btn">
+          <i class="fab fa-youtube" style="color: #ff0000;"></i> Müziği Dinle (Lvbel C5)
+        </a>
       </div>
     </div>
 
     <!-- 2. KART: PROGRAM AKIŞI -->
     <div class="card-container">
-      <h2 style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--primary-color); margin-bottom: 20px;">Program Akışı</h2>
+      <h2 style="font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--primary-color); margin-bottom: 20px; letter-spacing: 1px;">Düğün Program Akışı</h2>
       
       <div style="text-align: left; display: flex; flex-direction: column; gap: 15px;">
-        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
-          <span><i class="fas fa-glass-cheers" style="color: var(--gold-accent);"></i> Karşılama & Kokteyl</span>
-          <strong>19:00</strong>
+        <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
+          <i class="fas fa-heart" style="color: var(--gold-accent);"></i>
+          <span>Gelin & Damat Giriş Dansı</span>
         </div>
-        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
-          <span><i class="fas fa-ring" style="color: var(--gold-accent);"></i> Nikah Merasimi</span>
-          <strong>20:00</strong>
+        <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
+          <i class="fas fa-glass-cheers" style="color: var(--gold-accent);"></i>
+          <span>Devam Eden Etkinlikler</span>
         </div>
-        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
-          <span><i class="fas fa-music" style="color: var(--gold-accent);"></i> Yemek & Eğlence</span>
-          <strong>20:30</strong>
+        <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
+          <i class="fas fa-gift" style="color: var(--gold-accent);"></i>
+          <span>Takı Töreni</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; border-bottom: 1px dashed #ddd; padding-bottom: 10px;">
+          <i class="fas fa-compact-disc" style="color: var(--gold-accent);"></i>
+          <span>After Party</span>
         </div>
       </div>
     </div>
@@ -321,10 +389,6 @@
   </div>
 
   <script>
-    const bgMusic = document.getElementById('bgMusic');
-    const musicControl = document.getElementById('music-control');
-    const musicIcon = document.getElementById('music-icon');
-
     function openInvitation() {
       // Intro ekranını kapat
       const intro = document.getElementById('intro-screen');
@@ -335,28 +399,32 @@
       const cards = document.querySelectorAll('.card-container');
       cards.forEach(card => card.classList.add('visible'));
 
-      // Müzik butonunu göster ve müziği oynat
-      musicControl.style.display = 'flex';
-      bgMusic.play().then(() => {
-        musicIcon.className = "fas fa-volume-up";
-      }).catch(err => {
-        console.log("Müzik dosyası yüklenmedi veya engellendi:", err);
-      });
+      // Müzik butonunu göster
+      document.getElementById('music-control').style.display = 'flex';
     }
 
-    function toggleMusic() {
-      if (bgMusic.paused) {
-        bgMusic.play();
-        musicIcon.className = "fas fa-volume-up";
-      } else {
-        bgMusic.pause();
-        musicIcon.className = "fas fa-volume-mute";
+    // GERİ SAYIM HESAPLAMA (07.07.2027 19:00)
+    const targetDate = new Date("2027-07-07T19:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
       }
     }
 
-    function addToCalendar() {
-      alert("Etkinlik takviminize eklendi!");
-    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
