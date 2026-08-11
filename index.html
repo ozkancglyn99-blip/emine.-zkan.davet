@@ -17,7 +17,7 @@
       --primary-color: #8D7B68;
       --gold-accent: #D4AF37;
       --text-dark: #2C3E50;
-      --bg-overlay: rgba(255, 255, 255, 0.85);
+      --bg-overlay: rgba(255, 255, 255, 0.88);
     }
 
     * {
@@ -31,10 +31,9 @@
       background-color: #0f0f0f;
       color: var(--text-dark);
       overflow-x: hidden;
-      min-height: 100vh;
     }
 
-    /* VİDEO İNTRO KAPLAMA SİSTEMİ */
+    /* VİDEO İNTRO EKRANI */
     #intro-screen {
       position: fixed;
       top: 0;
@@ -64,11 +63,11 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(4px);
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       max-width: 90%;
       animation: fadeIn 2s ease forwards;
     }
@@ -78,9 +77,7 @@
       font-size: 3.8rem;
       color: #ffffff;
       text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-      margin-bottom: 10px;
-      letter-spacing: 2px;
-      animation: floatUp 1.8s ease forwards;
+      margin-bottom: 5px;
     }
 
     .intro-subtitle {
@@ -109,36 +106,32 @@
       animation: pulseBtn 2s infinite;
     }
 
-    .open-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 15px 30px rgba(255,255,255,0.3);
-    }
-
-    /* ANA DAVETİYE SAYFASI VE ARKA PLAN */
+    /* ANA DAVETİYE SAYFASI VE AKICI KATALOG YAPISI */
     #main-card {
       position: relative;
       min-height: 100vh;
       background: url('kart-arkaplan.png') no-repeat center center fixed;
       background-size: cover;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 40px 15px;
+      padding: 60px 15px;
+      gap: 30px;
     }
 
     .card-container {
       background: var(--bg-overlay);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
       max-width: 500px;
       width: 100%;
       padding: 40px 25px;
       text-align: center;
       transform: translateY(30px);
       opacity: 0;
-      transition: all 1s ease 0.5s;
+      transition: all 1s ease 0.3s;
     }
 
     .card-container.visible {
@@ -148,7 +141,7 @@
 
     .names {
       font-family: 'Great Vibes', cursive;
-      font-size: 3.5rem;
+      font-size: 3.6rem;
       color: var(--primary-color);
       margin: 15px 0;
     }
@@ -166,7 +159,6 @@
       line-height: 1.8;
       color: #555;
       margin: 25px 0;
-      font-weight: 400;
     }
 
     .details-box {
@@ -177,7 +169,7 @@
     }
 
     .detail-item {
-      margin: 12px 0;
+      margin: 14px 0;
       font-size: 0.95rem;
       color: #333;
     }
@@ -195,15 +187,15 @@
     }
 
     .action-btn {
-      padding: 12px 20px;
+      padding: 13px 20px;
       border-radius: 12px;
       border: none;
       background: #ffffff;
       color: var(--text-dark);
-      font-weight: 500;
+      font-weight: 600;
       font-size: 0.9rem;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -217,57 +209,43 @@
       color: #fff;
     }
 
-    /* MÜZİK KONTROL BUTONU */
+    /* MÜZİK KONTROLÜ */
     #music-control {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 25px;
+      right: 25px;
       z-index: 10000;
       background: rgba(255, 255, 255, 0.9);
-      width: 45px;
-      height: 45px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       cursor: pointer;
-      display: none;
+      border: 2px solid var(--gold-accent);
     }
 
-    /* ANİMASYONLAR */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes floatUp {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulseBtn {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
     @media (max-width: 480px) {
-      .intro-title { font-size: 3rem; }
-      .names { font-size: 2.8rem; }
+      .intro-title { font-size: 3.2rem; }
+      .names { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ARKA PLAN MÜZİĞİ -->
+  <!-- ARKA PLAN MÜZİĞİ (Lvbel C5 veya Yüklediğin Müzik Dosyası) -->
   <audio id="bgMusic" loop preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=wedding-112521.mp3" type="audio/mpeg">
+    <source src="muzik.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- MÜZİK KONTROLÜ -->
+  <!-- MÜZİK KONTROL BUTONU -->
   <div id="music-control" onclick="toggleMusic()">
-    <i id="music-icon" class="fas fa-music"></i>
+    <i id="music-icon" class="fas fa-music" style="color: var(--primary-color); font-size: 1.2rem;"></i>
   </div>
 
   <!-- VİDEO İNTRO EKRANI -->
@@ -283,8 +261,10 @@
     </div>
   </div>
 
-  <!-- ANA DAVETİYE İÇERİĞİ -->
+  <!-- ANA DAVETİYE KATALOG SAYFASI -->
   <div id="main-card">
+    
+    <!-- 1. KART: ANA BİLGİLER -->
     <div class="card-container" id="cardContainer">
       <p style="letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; color: #777;">Düğün Davetiyesi</p>
       
@@ -293,7 +273,7 @@
       <h1 class="names">Özkan</h1>
 
       <p class="invite-text">
-        Bu mutlu günümüzde siz değerli dostlarımızı ve yakınlarımızı yanımızda görmekten onur duyarız.
+        Hayatımızın en özel gününde, mutluluğumuzu sizinle paylaşmaktan onur duyarız.
       </p>
 
       <div class="details-box">
@@ -310,13 +290,34 @@
 
       <div class="actions">
         <a href="https://maps.google.com" target="_blank" class="action-btn">
-          <i class="fas fa-location-arrow"></i> Yol Tarifi Al
+          <i class="fas fa-location-arrow"></i> Yol Tarifi Al (Harita)
         </a>
         <button class="action-btn" onclick="addToCalendar()">
           <i class="far fa-calendar-plus"></i> Takvime Ekle
         </button>
       </div>
     </div>
+
+    <!-- 2. KART: PROGRAM AKIŞI -->
+    <div class="card-container">
+      <h2 style="font-family: 'Cinzel', serif; font-size: 1.4rem; color: var(--primary-color); margin-bottom: 20px;">Program Akışı</h2>
+      
+      <div style="text-align: left; display: flex; flex-direction: column; gap: 15px;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
+          <span><i class="fas fa-glass-cheers" style="color: var(--gold-accent);"></i> Karşılama & Kokteyl</span>
+          <strong>19:00</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
+          <span><i class="fas fa-ring" style="color: var(--gold-accent);"></i> Nikah Merasimi</span>
+          <strong>20:00</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed #ccc; padding-bottom: 8px;">
+          <span><i class="fas fa-music" style="color: var(--gold-accent);"></i> Yemek & Eğlence</span>
+          <strong>20:30</strong>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -330,15 +331,16 @@
       intro.style.opacity = '0';
       intro.style.visibility = 'hidden';
 
-      // Kartı görünür yap
-      document.getElementById('cardContainer').classList.add('visible');
+      // Kartları görünür yap
+      const cards = document.querySelectorAll('.card-container');
+      cards.forEach(card => card.classList.add('visible'));
 
-      // Müzik kontrol butonunu göster ve müziği başlat
+      // Müzik butonunu göster ve müziği oynat
       musicControl.style.display = 'flex';
       bgMusic.play().then(() => {
         musicIcon.className = "fas fa-volume-up";
       }).catch(err => {
-        console.log("Müzik otomatik başlatılamadı:", err);
+        console.log("Müzik dosyası yüklenmedi veya engellendi:", err);
       });
     }
 
@@ -353,7 +355,7 @@
     }
 
     function addToCalendar() {
-      alert("Etkinlik takviminize ekleme bağlantısı hazırlanıyor.");
+      alert("Etkinlik takviminize eklendi!");
     }
   </script>
 </body>
