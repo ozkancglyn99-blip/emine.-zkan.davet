@@ -3,577 +3,357 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="sayfaBasligi">Davetiye</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Emine & Özkan Davetiyesi</title>
+  
+  <!-- Fontlar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- FontAwesome İkonları -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    
+    :root {
+      --primary-color: #8D7B68;
+      --gold-accent: #D4AF37;
+      --text-dark: #2C3E50;
+      --bg-overlay: rgba(255, 255, 255, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background: #0d0d0d;
-      color: #2c2c2c;
       font-family: 'Montserrat', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      background-color: #0f0f0f;
+      color: var(--text-dark);
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* Zarf / Kapı Konteynırı */
-    .envelope-container {
-      position: relative;
-      width: 100%;
-      max-width: 450px;
+    /* VİDEO İNTRO KAPLAMA SİSTEMİ */
+    #intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
       height: 100vh;
-      perspective: 1500px;
-      overflow: hidden;
-    }
-
-    /* 3D Kapı Açılış Efekti */
-    .door {
-      position: absolute;
-      top: 0;
-      width: 50%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      z-index: 20;
-      transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
-      box-shadow: 0 12px 35px rgba(0,0,0,0.85);
-    }
-    .door-left {
-      left: 0;
-      transform-origin: left center;
-      border-right: 1px solid rgba(255,255,255,0.2);
-    }
-    .door-right {
-      right: 0;
-      transform-origin: right center;
-      border-left: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .envelope-container.open .door-left { transform: rotateY(-130deg); }
-    .envelope-container.open .door-right { transform: rotateY(130deg); }
-
-    .open-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 30;
-      padding: 16px 36px;
-      background: #ffffff;
-      color: #6b1d2f;
-      border: 1px solid #6b1d2f;
-      border-radius: 30px;
-      font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      transition: all 0.4s ease;
-    }
-    .open-btn:hover {
-      background: #6b1d2f;
-      color: #ffffff;
-      scale: 1.05;
-    }
-
-    #birdCanvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 25;
-    }
-
-    /* İç Kaydırılabilir Kart Sayfası */
-    .card-scrollable {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scroll-snap-type: y mandatory;
-      display: none;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-
-    .envelope-container.open .card-scrollable {
-      display: block;
-      opacity: 1;
-    }
-
-    /* Bölüm Şablonu */
-    .section {
-      min-height: 100vh;
-      scroll-snap-align: start;
+      z-index: 9999;
+      background-color: #000;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
-      position: relative;
+      transition: opacity 1.2s ease, visibility 1.2s ease;
     }
 
-    /* Glassmorphism Paneller */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 30px 22px;
+    #bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.7);
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .video-overlay-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      max-width: 90%;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    .intro-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.8rem;
+      color: #ffffff;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      animation: floatUp 1.8s ease forwards;
+    }
+
+    .intro-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: #f1f1f1;
+      letter-spacing: 4px;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    }
+
+    .open-btn {
+      padding: 14px 36px;
+      font-size: 1rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #111;
+      background: linear-gradient(135deg, #ffffff, #e0e0e0);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+      animation: pulseBtn 2s infinite;
+    }
+
+    .open-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(255,255,255,0.3);
+    }
+
+    /* ANA DAVETİYE SAYFASI VE ARKA PLAN */
+    #main-card {
+      position: relative;
+      min-height: 100vh;
+      background: url('kart-arkaplan.png') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 15px;
+    }
+
+    .card-container {
+      background: var(--bg-overlay);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px 25px;
       text-align: center;
       transform: translateY(30px);
       opacity: 0;
-      transition: all 0.8s ease-out;
+      transition: all 1s ease 0.5s;
     }
 
-    .glass-card.visible {
+    .card-container.visible {
       transform: translateY(0);
       opacity: 1;
     }
 
-    /* Tipografi */
-    .names-hero {
-      font-family: 'Cinzel', serif;
-      font-size: 2.3rem;
-      font-weight: 700;
-      color: #6b1d2f;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-      line-height: 1.2;
+    .names {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: var(--primary-color);
+      margin: 15px 0;
     }
 
-    .subtitle {
+    .and-sym {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      color: var(--gold-accent);
+      display: block;
+      margin: -10px 0;
+    }
+
+    .invite-text {
       font-size: 0.95rem;
+      line-height: 1.8;
       color: #555;
-      font-style: italic;
-      margin-bottom: 20px;
+      margin: 25px 0;
+      font-weight: 400;
     }
 
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: #8b5a2b;
-      letter-spacing: 2px;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      font-weight: 700;
+    .details-box {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 20px 0;
+      margin: 25px 0;
     }
 
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, #8b5a2b, transparent);
-      margin: 15px auto;
-      width: 70%;
+    .detail-item {
+      margin: 12px 0;
+      font-size: 0.95rem;
+      color: #333;
     }
 
-    /* Geri Sayım */
-    .timer {
+    .detail-item i {
+      color: var(--primary-color);
+      margin-right: 8px;
+    }
+
+    .actions {
       display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .action-btn {
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: none;
+      background: #ffffff;
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
       justify-content: center;
       gap: 10px;
-      margin-top: 15px;
-    }
-    .time-box {
-      background: linear-gradient(135deg, #6b1d2f, #8b263e);
-      color: #fff;
-      padding: 10px 8px;
-      border-radius: 12px;
-      min-width: 60px;
-      box-shadow: 0 4px 10px rgba(107, 29, 47, 0.3);
-    }
-    .time-box .num {
-      font-size: 1.2rem;
-      font-weight: 700;
-      display: block;
-    }
-    .time-box .label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      opacity: 0.85;
-    }
-
-    /* Akış / Program Listesi */
-    .timeline {
-      text-align: left;
-      margin: 15px 0;
-      position: relative;
-      padding-left: 20px;
-      border-left: 2px solid #8b5a2b;
-    }
-    .timeline-item {
-      position: relative;
-      margin-bottom: 14px;
-      font-size: 0.9rem;
-      color: #333;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -26px;
-      top: 4px;
-      width: 10px;
-      height: 10px;
-      background: #6b1d2f;
-      border-radius: 50%;
-    }
-
-    .info-text {
-      font-size: 0.95rem;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    /* Buton Tasarımları */
-    .btn {
-      display: block;
-      width: 100%;
-      margin-top: 12px;
-      padding: 12px 20px;
-      color: #fff;
       text-decoration: none;
-      border-radius: 25px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      transition: transform 0.2s, background 0.2s;
+      transition: all 0.2s ease;
     }
-    .btn:hover { transform: scale(1.02); }
 
-    .btn-main { background: linear-gradient(135deg, #6b1d2f, #8b263e); }
-    .btn-whatsapp-bride { background: linear-gradient(135deg, #d4a373, #a9714b); }
-    .btn-whatsapp-groom { background: linear-gradient(135deg, #4a6fa5, #2b4c7e); }
-    .btn-camera { background: linear-gradient(135deg, #2a9d8f, #1d7064); }
+    .action-btn:hover {
+      background: var(--primary-color);
+      color: #fff;
+    }
 
-    /* Müzik Butonu (Yüzen Buton) */
-    .music-toggle {
-      position: absolute;
+    /* MÜZİK KONTROL BUTONU */
+    #music-control {
+      position: fixed;
       bottom: 20px;
       right: 20px;
-      z-index: 50;
+      z-index: 10000;
+      background: rgba(255, 255, 255, 0.9);
       width: 45px;
       height: 45px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #6b1d2f;
-      color: #6b1d2f;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       display: none;
     }
-    .music-toggle.playing {
-      animation: spin 3s linear infinite;
+
+    /* ANİMASYONLAR */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
+    @keyframes floatUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Scroll Indikatörü */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #6b1d2f;
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      animation: bounce 2s infinite;
+    @keyframes pulseBtn {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
-    .scroll-indicator span { font-size: 1.2rem; margin-top: 2px; }
 
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-      40% { transform: translate(-50%, -8px); }
-      60% { transform: translate(-50%, -4px); }
+    @media (max-width: 480px) {
+      .intro-title { font-size: 3rem; }
+      .names { font-size: 2.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="envelope-container" id="envelope">
-    <div class="door door-left" id="solKapi"></div>
-    <div class="door door-right" id="sagKapi"></div>
-    <button class="open-btn" id="openBtn" onclick="davetiyeyiAc()">DAVETİYEYİ AÇ</button>
-    <canvas id="birdCanvas"></canvas>
+  <!-- ARKA PLAN MÜZİĞİ -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=wedding-112521.mp3" type="audio/mpeg">
+  </audio>
 
-    <!-- Müzik Kutusu -->
-    <button class="music-toggle" id="musicBtn" onclick="muzikKoyDurdur()">🎵</button>
-    <audio id="bgMusic" loop></audio>
+  <!-- MÜZİK KONTROLÜ -->
+  <div id="music-control" onclick="toggleMusic()">
+    <i id="music-icon" class="fas fa-music"></i>
+  </div>
 
-    <!-- Kaydırılabilir Lüks Sayfa -->
-    <div class="card-scrollable" id="kartArkaplan">
+  <!-- VİDEO İNTRO EKRANI -->
+  <div id="intro-screen">
+    <video id="bg-video" autoplay muted playsinline loop>
+      <source src="araba.mp4" type="video/mp4">
+    </video>
+    
+    <div class="video-overlay-content">
+      <h1 class="intro-title">Evleniyoruz</h1>
+      <p class="intro-subtitle">Emine & Özkan</p>
+      <button class="open-btn" onclick="openInvitation()">DAVETİYEYİ AÇ</button>
+    </div>
+  </div>
+
+  <!-- ANA DAVETİYE İÇERİĞİ -->
+  <div id="main-card">
+    <div class="card-container" id="cardContainer">
+      <p style="letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; color: #777;">Düğün Davetiyesi</p>
       
-      <!-- HERO BÖLÜMÜ -->
-      <div class="section">
-        <div class="glass-card visible">
-          <div class="names-hero" id="gelinDamat"></div>
-          <p class="subtitle">Bu mutlu günümüzde sizleri de aramızda görmekten onur duyarız.</p>
-          <div class="divider"></div>
-          <div class="section-title">Büyük Güne Kalan Süre</div>
-          <div class="timer">
-            <div class="time-box"><span class="num" id="days">00</span><span class="label">Gün</span></div>
-            <div class="time-box"><span class="num" id="hours">00</span><span class="label">Saat</span></div>
-            <div class="time-box"><span class="num" id="minutes">00</span><span class="label">Dakika</span></div>
-            <div class="time-box"><span class="num" id="seconds">00</span><span class="label">Saniye</span></div>
-          </div>
+      <h1 class="names">Emine</h1>
+      <span class="and-sym">&</span>
+      <h1 class="names">Özkan</h1>
+
+      <p class="invite-text">
+        Bu mutlu günümüzde siz değerli dostlarımızı ve yakınlarımızı yanımızda görmekten onur duyarız.
+      </p>
+
+      <div class="details-box">
+        <div class="detail-item">
+          <i class="far fa-calendar-alt"></i> <strong>Tarih:</strong> 24 Ağustos 2026
         </div>
-        <div class="scroll-indicator">
-          AŞAĞI KAYDIR
-          <span>↓</span>
+        <div class="detail-item">
+          <i class="far fa-clock"></i> <strong>Saat:</strong> 19:00
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-map-marker-alt"></i> <strong>Mekan:</strong> Saray Düğün Salonu
         </div>
       </div>
 
-      <!-- AİLELER BÖLÜMÜ -->
-      <div class="section">
-        <div class="glass-card">
-          <div class="section-title">Ailelerimiz</div>
-          <div class="divider"></div>
-          <p class="info-text" style="margin-bottom: 12px;"><strong>Gelin Ailesi:</strong> <br><span id="gelinAilesi"></span></p>
-          <p class="info-text"><strong>Damat Ailesi:</strong> <br><span id="damatAilesi"></span></p>
-        </div>
+      <div class="actions">
+        <a href="https://maps.google.com" target="_blank" class="action-btn">
+          <i class="fas fa-location-arrow"></i> Yol Tarifi Al
+        </a>
+        <button class="action-btn" onclick="addToCalendar()">
+          <i class="far fa-calendar-plus"></i> Takvime Ekle
+        </button>
       </div>
-
-      <!-- DÜĞÜN AKIŞI BÖLÜMÜ -->
-      <div class="section">
-        <div class="glass-card">
-          <div class="section-title">Düğün Programı</div>
-          <div class="divider"></div>
-          <div class="timeline" id="programTimeline"></div>
-        </div>
-      </div>
-
-      <!-- KATILIM BİLDİRİMİ (LCV / WHATSAPP) -->
-      <div class="section">
-        <div class="glass-card">
-          <div class="section-title">Katılım Durumu (LCV)</div>
-          <p class="info-text" style="margin-bottom: 15px;">Düğünümüze katılıp katılamayacağınızı tarafımıza bildirmenizi rica ederiz.</p>
-          <div class="divider"></div>
-          <a id="gelinLcvLink" href="#" target="_blank" class="btn btn-whatsapp-bride">🌸 Kız Tarafı Katılım Bildir</a>
-          <a id="damatLcvLink" href="#" target="_blank" class="btn btn-whatsapp-groom">🎩 Erkek Tarafı Katılım Bildir</a>
-        </div>
-      </div>
-
-      <!-- KAMERA / FOTOĞRAF YÜKLEME ALANI -->
-      <div class="section">
-        <div class="glass-card">
-          <div class="section-title">Fotoğraf Anıları</div>
-          <p class="info-text" style="margin-bottom: 15px;">Düğün günümüzde çektiğiniz en güzel kareleri bizimle paylaşın!</p>
-          <div class="divider"></div>
-          <a id="fotoYukleLink" href="#" target="_blank" class="btn btn-camera">📸 Fotoğraf / Video Yükle</a>
-        </div>
-      </div>
-
-      <!-- TARİH & MEKAN BÖLÜMÜ -->
-      <div class="section">
-        <div class="glass-card">
-          <div class="section-title">Tarih & Mekan</div>
-          <div class="divider"></div>
-          <p class="info-text" style="margin-bottom: 10px;"><strong>Tarih:</strong> <br><span id="tarihSaat"></span></p>
-          <p class="info-text"><strong>Mekan:</strong> <br><span id="salonAd"></span> - <span id="adres"></span></p>
-          
-          <a id="haritaLink" href="#" target="_blank" class="btn btn-main" style="margin-top: 18px;">📍 HARİTADA GÖR / KONUM</a>
-        </div>
-      </div>
-
     </div>
   </div>
 
   <script>
-    const MUSTERI_BILGILERI = {
-      gelinDamat: "Emine & Özkan",
-      gelinAilesi: "Nazan & Yasin",
-      damatAilesi: "Nuray & Erol",
-      tarihSaat: "07.07.2027 - Saat 19:00",
-      etkinlikTarihi: "2027-07-07T19:00:00",
-      salonAd: "Boran Park Düğün Salonu",
-      adres: "Ankara / Sincan",
-      programMaddeleri: [
-        "Gelin & Damat Girişi",
-        "Eğlenceli Oyunlar",
-        "Halay & Oyun Havası",
-        "Pasta Kesimi",
-        "Takı Töreni",
-        "After Party & Bitiş"
-      ],
-      haritaUrl: "https://www.google.com/maps/place/Boran+Park+Sincan+D%C3%BC%C4%9F%C3%BCn+Salonlar%C4%B1/@39.9511082,32.5378026,15z/data=!4m20!1m13!4m12!1m3!2m2!1d32.5451776!2d39.9540224!1m6!1m2!1s0x14d33bb7ebba2e65:0x19126fc6b5f9ef3f!2zQm9yYW4gUGFyayBTaW5jYW4gRMO8xJ_DvG4gU2Fsb25sYXLEsSwgWWVuacOnaW3Fn2l0LCDDh2ltxZ9pdCBTZXJwbWVsZXJpIE5vOjY1LCAwNjkzMCBTaW5jYW4vQW5rYXJh!2m2!1d32.553265!2d39.948195!3e0!3m5!1s0x14d33bb7ebba2e65:0x19126fc6b5f9ef3f!8m2!3d39.948195!4d32.553265!16s%2Fg%2F11p56g1qsw",
-      
-      // WhatsApp LCV Numaraları (Başına 90 ekleyerek yazın)
-      gelinTelefon: "905000000000",
-      damatTelefon: "905000000000",
-      
-      // Fotoğraf yükleme linki (Google Drive / Photos veya özel link)
-      fotoYukleUrl: "https://photos.google.com",
+    const bgMusic = document.getElementById('bgMusic');
+    const musicControl = document.getElementById('music-control');
+    const musicIcon = document.getElementById('music-icon');
 
-      // Görseller & Müzik (Lvbel C5 - Gel Gel entegre edildi)
-      solKapiGorsel: "https://i.ibb.co/NdXvJ2Fs/sol-kap-png.png",
-      sagKapiGorsel: "https://i.ibb.co/bgNQ9S7h/sag-kap-png.png",
-      kartGorsel: "https://i.ibb.co/vx5B3FS3/kart-arkaplan-png.png",
-      muzikUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"
-    };
+    function openInvitation() {
+      // Intro ekranını kapat
+      const intro = document.getElementById('intro-screen');
+      intro.style.opacity = '0';
+      intro.style.visibility = 'hidden';
 
-    let isPlaying = false;
+      // Kartı görünür yap
+      document.getElementById('cardContainer').classList.add('visible');
 
-    window.onload = () => {
-      document.getElementById('sayfaBasligi').innerText = MUSTERI_BILGILERI.gelinDamat + " Davetiye";
-      document.getElementById('gelinDamat').innerText = MUSTERI_BILGILERI.gelinDamat;
-      document.getElementById('gelinAilesi').innerText = MUSTERI_BILGILERI.gelinAilesi;
-      document.getElementById('damatAilesi').innerText = MUSTERI_BILGILERI.damatAilesi;
-      document.getElementById('tarihSaat').innerText = MUSTERI_BILGILERI.tarihSaat;
-      document.getElementById('salonAd').innerText = MUSTERI_BILGILERI.salonAd;
-      document.getElementById('adres').innerText = MUSTERI_BILGILERI.adres;
-      document.getElementById('haritaLink').href = MUSTERI_BILGILERI.haritaUrl;
-      document.getElementById('fotoYukleLink').href = MUSTERI_BILGILERI.fotoYukleUrl;
-
-      // WhatsApp Katılım Linkleri
-      const mesaj = encodeURIComponent(`Merhaba, ${MUSTERI_BILGILERI.gelinDamat} düğünü için katılım durumumu bildirmek istiyorum.`);
-      document.getElementById('gelinLcvLink').href = `https://wa.me/${MUSTERI_BILGILERI.gelinTelefon}?text=${mesaj}`;
-      document.getElementById('damatLcvLink').href = `https://wa.me/${MUSTERI_BILGILERI.damatTelefon}?text=${mesaj}`;
-      
-      // Program Akışını Oluştur
-      const timelineContainer = document.getElementById('programTimeline');
-      MUSTERI_BILGILERI.programMaddeleri.forEach(madde => {
-        const item = document.createElement('div');
-        item.className = 'timeline-item';
-        item.innerText = madde;
-        timelineContainer.appendChild(item);
+      // Müzik kontrol butonunu göster ve müziği başlat
+      musicControl.style.display = 'flex';
+      bgMusic.play().then(() => {
+        musicIcon.className = "fas fa-volume-up";
+      }).catch(err => {
+        console.log("Müzik otomatik başlatılamadı:", err);
       });
-
-      document.getElementById('solKapi').style.backgroundImage = `url('${MUSTERI_BILGILERI.solKapiGorsel}')`;
-      document.getElementById('sagKapi').style.backgroundImage = `url('${MUSTERI_BILGILERI.sagKapiGorsel}')`;
-      document.getElementById('kartArkaplan').style.backgroundImage = `url('${MUSTERI_BILGILERI.kartGorsel}')`;
-
-      if(MUSTERI_BILGILERI.muzikUrl) {
-        document.getElementById('bgMusic').src = MUSTERI_BILGILERI.muzikUrl;
-      }
-
-      geriSayimBaslat();
-      scrollAnimasyonuAyarla();
-    };
-
-    function davetiyeyiAc() {
-      document.getElementById('envelope').classList.add('open');
-      const openBtn = document.getElementById('openBtn');
-      openBtn.style.opacity = '0';
-      setTimeout(() => openBtn.style.display = 'none', 500);
-
-      const musicBtn = document.getElementById('musicBtn');
-      if(MUSTERI_BILGILERI.muzikUrl) {
-        musicBtn.style.display = 'flex';
-        muzikKoyDurdur();
-      }
-
-      kuslariUcur();
     }
 
-    function muzikKoyDurdur() {
-      const audio = document.getElementById('bgMusic');
-      const musicBtn = document.getElementById('musicBtn');
-
-      if (isPlaying) {
-        audio.pause();
-        musicBtn.classList.remove('playing');
-        isPlaying = false;
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicIcon.className = "fas fa-volume-up";
       } else {
-        audio.play().then(() => {
-          musicBtn.classList.add('playing');
-          isPlaying = true;
-        }).catch(() => {});
+        bgMusic.pause();
+        musicIcon.className = "fas fa-volume-mute";
       }
     }
 
-    function geriSayimBaslat() {
-      const hedefTarih = new Date(MUSTERI_BILGILERI.etkinlikTarihi).getTime();
-      
-      setInterval(() => {
-        const simdi = new Date().getTime();
-        const fark = hedefTarih - simdi;
-
-        if (fark > 0) {
-          document.getElementById('days').innerText = Math.floor(fark / (1000 * 60 * 60 * 24));
-          document.getElementById('hours').innerText = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          document.getElementById('minutes').innerText = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
-          document.getElementById('seconds').innerText = Math.floor((fark % (1000 * 60)) / 1000);
-        }
-      }, 1000);
-    }
-
-    function scrollAnimasyonuAyarla() {
-      const scrollContainer = document.getElementById('kartArkaplan');
-      const cards = document.querySelectorAll('.glass-card');
-
-      scrollContainer.addEventListener('scroll', () => {
-        cards.forEach(card => {
-          const cardTop = card.getBoundingClientRect().top;
-          if (cardTop < window.innerHeight * 0.85) {
-            card.classList.add('visible');
-          }
-        });
-      });
-    }
-
-    function kuslariUcur() {
-      const canvas = document.getElementById('birdCanvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-
-      const birds = Array.from({ length: 14 }, () => ({
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        vx: (Math.random() - 0.5) * 6,
-        vy: -Math.random() * 3 - 2,
-        size: Math.random() * 6 + 4,
-        wing: 0
-      }));
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        let active = false;
-
-        birds.forEach(b => {
-          b.x += b.vx;
-          b.y += b.vy;
-          b.wing += 0.2;
-
-          if (b.y > -20 && b.x > -20 && b.x < canvas.width + 20) {
-            active = true;
-            ctx.beginPath();
-            ctx.strokeStyle = '#555';
-            ctx.lineWidth = 1.5;
-            const wingY = Math.sin(b.wing) * 4;
-            ctx.moveTo(b.x - b.size, b.y + wingY);
-            ctx.quadraticCurveTo(b.x, b.y - b.size, b.x + b.size, b.y + wingY);
-            ctx.stroke();
-          }
-        });
-
-        if (active) requestAnimationFrame(animate);
-      }
-      animate();
+    function addToCalendar() {
+      alert("Etkinlik takviminize ekleme bağlantısı hazırlanıyor.");
     }
   </script>
 </body>
