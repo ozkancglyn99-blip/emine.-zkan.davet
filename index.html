@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="sayfaBasligi">Davetiye</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
     body {
       background: #0d0d0d;
       color: #2c2c2c;
@@ -18,12 +20,14 @@
       overflow-x: hidden;
     }
 
+    /* Zarf / Kapı Konteynırı */
     .envelope-container {
       position: relative;
-      width: 92%;
-      max-width: 430px;
-      height: 720px;
+      width: 100%;
+      max-width: 450px;
+      height: 100vh;
       perspective: 1500px;
+      overflow: hidden;
     }
 
     /* 3D Kapı Açılış Efekti */
@@ -34,7 +38,7 @@
       height: 100%;
       background-size: cover;
       background-position: center;
-      z-index: 10;
+      z-index: 20;
       transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
       box-shadow: 0 12px 35px rgba(0,0,0,0.85);
     }
@@ -42,141 +46,39 @@
       left: 0;
       transform-origin: left center;
       border-right: 1px solid rgba(255,255,255,0.2);
-      border-radius: 12px 0 0 12px;
     }
     .door-right {
       right: 0;
       transform-origin: right center;
       border-left: 1px solid rgba(255,255,255,0.2);
-      border-radius: 0 12px 12px 0;
     }
 
     .envelope-container.open .door-left { transform: rotateY(-130deg); }
     .envelope-container.open .door-right { transform: rotateY(130deg); }
-
-    /* Arka Plan ve İç İçerik */
-    .card {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      border-radius: 12px;
-      padding: 20px 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: inset 0 0 25px rgba(0,0,0,0.3);
-      overflow-y: auto;
-    }
-
-    /* Okunabilirliği Artıran Cam Panel */
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.90);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-radius: 16px;
-      padding: 25px 18px;
-      width: 100%;
-      margin: auto 0;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      text-align: center;
-    }
-
-    .names {
-      font-family: 'Cinzel', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: #6b1d2f;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
-      color: #8b5a2b;
-      letter-spacing: 1px;
-      margin: 14px 0 6px 0;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, #8b5a2b, transparent);
-      margin: 10px auto;
-      width: 80%;
-    }
-
-    /* Geri Sayım Kutuları */
-    .timer {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 8px 0;
-    }
-    .time-box {
-      background: #6b1d2f;
-      color: #fff;
-      padding: 6px 8px;
-      border-radius: 8px;
-      min-width: 52px;
-    }
-    .time-box .num {
-      font-size: 1.05rem;
-      font-weight: 600;
-      display: block;
-    }
-    .time-box .label {
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      opacity: 0.85;
-    }
-
-    .info-text {
-      font-size: 0.88rem;
-      color: #333;
-      line-height: 1.5;
-    }
-
-    .map-btn {
-      display: inline-block;
-      margin-top: 14px;
-      padding: 12px 28px;
-      background: linear-gradient(135deg, #6b1d2f, #8b263e);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 25px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(107, 29, 47, 0.4);
-      transition: transform 0.2s;
-    }
-    .map-btn:hover { transform: scale(1.03); }
 
     .open-btn {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 25;
-      padding: 16px 32px;
+      z-index: 30;
+      padding: 16px 36px;
       background: #ffffff;
       color: #6b1d2f;
       border: 1px solid #6b1d2f;
       border-radius: 30px;
       font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 700;
       letter-spacing: 2px;
       cursor: pointer;
       box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      transition: opacity 0.4s;
+      transition: all 0.4s ease;
+    }
+    .open-btn:hover {
+      background: #6b1d2f;
+      color: #ffffff;
+      scale: 1.05;
     }
 
     #birdCanvas {
@@ -186,7 +88,196 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 15;
+      z-index: 25;
+    }
+
+    /* İç Kaydırılabilir Kart Sayfası */
+    .card-scrollable {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      display: none; /* Açılana kadar gizli */
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .envelope-container.open .card-scrollable {
+      display: block;
+      opacity: 1;
+    }
+
+    /* Bölüm Şablonu */
+    .section {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 20px;
+      position: relative;
+    }
+
+    /* Glassmorphism Paneller */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px 22px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      text-align: center;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.8s ease-out;
+    }
+
+    .glass-card.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Tipografi */
+    .names-hero {
+      font-family: 'Cinzel', serif;
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: #6b1d2f;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #555;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: #8b5a2b;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #8b5a2b, transparent);
+      margin: 15px auto;
+      width: 70%;
+    }
+
+    /* Geri Sayım */
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .time-box {
+      background: linear-gradient(135deg, #6b1d2f, #8b263e);
+      color: #fff;
+      padding: 10px 8px;
+      border-radius: 12px;
+      min-width: 60px;
+      box-shadow: 0 4px 10px rgba(107, 29, 47, 0.3);
+    }
+    .time-box .num {
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: block;
+    }
+    .time-box .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* Akış / Program Listesi (Timeline) */
+    .timeline {
+      text-align: left;
+      margin: 15px 0;
+      position: relative;
+      padding-left: 20px;
+      border-left: 2px solid #8b5a2b;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      background: #6b1d2f;
+      border-radius: 50%;
+    }
+
+    .info-text {
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .map-btn {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, #6b1d2f, #8b263e);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 20px rgba(107, 29, 47, 0.4);
+      transition: transform 0.2s;
+    }
+    .map-btn:hover { transform: scale(1.04); }
+
+    /* Scroll Indikatörü (Aşağı Kaydır Oku) */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #6b1d2f;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      animation: bounce 2s infinite;
+    }
+    .scroll-indicator span {
+      font-size: 1.2rem;
+      margin-top: 2px;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+      40% { transform: translate(-50%, -8px); }
+      60% { transform: translate(-50%, -4px); }
     }
   </style>
 </head>
@@ -198,45 +289,60 @@
     <button class="open-btn" id="openBtn" onclick="davetiyeyiAc()">DAVETİYEYİ AÇ</button>
     <canvas id="birdCanvas"></canvas>
 
-    <div class="card" id="kartArkaplan">
-      <div class="glass-panel">
-        <!-- 1. Gelin & Damat İsimleri -->
-        <div class="names" id="gelinDamat"></div>
-        <p class="info-text">Bu mutlu günümüzde sizleri de aramızda görmekten onur duyarız.</p>
-        
-        <div class="divider"></div>
-
-        <!-- 2. Geri Sayım -->
-        <div class="section-title">Büyük Güne Kalan Süre</div>
-        <div class="timer">
-          <div class="time-box"><span class="num" id="days">00</span><span class="label">Gün</span></div>
-          <div class="time-box"><span class="num" id="hours">00</span><span class="label">Saat</span></div>
-          <div class="time-box"><span class="num" id="minutes">00</span><span class="label">Dakika</span></div>
-          <div class="time-box"><span class="num" id="seconds">00</span><span class="label">Saniye</span></div>
+    <!-- Aşağı Doğru Kaydırılabilir Lüks Sayfa Yapısı -->
+    <div class="card-scrollable" id="kartArkaplan">
+      
+      <!-- HERO BÖLÜMÜ -->
+      <div class="section">
+        <div class="glass-card visible">
+          <div class="names-hero" id="gelinDamat"></div>
+          <p class="subtitle">Bu mutlu günümüzde sizleri de aramızda görmekten onur duyarız.</p>
+          <div class="divider"></div>
+          <div class="section-title">Büyük Güne Kalan Süre</div>
+          <div class="timer">
+            <div class="time-box"><span class="num" id="days">00</span><span class="label">Gün</span></div>
+            <div class="time-box"><span class="num" id="hours">00</span><span class="label">Saat</span></div>
+            <div class="time-box"><span class="num" id="minutes">00</span><span class="label">Dakika</span></div>
+            <div class="time-box"><span class="num" id="seconds">00</span><span class="label">Saniye</span></div>
+          </div>
         </div>
-
-        <div class="divider"></div>
-
-        <!-- 3. Aile Bilgileri -->
-        <div class="section-title">Ailelerimiz</div>
-        <p class="info-text"><strong>Gelin Ailesi:</strong> <span id="gelinAilesi"></span></p>
-        <p class="info-text"><strong>Damat Ailesi:</strong> <span id="damatAilesi"></span></p>
-
-        <div class="divider"></div>
-
-        <!-- 4. Program Akışı -->
-        <div class="section-title">Düğün Akışı</div>
-        <p class="info-text" id="program"></p>
-
-        <div class="divider"></div>
-
-        <!-- 5. Tarih, Salon ve Konum Bilgisi -->
-        <div class="section-title">Tarih & Mekan</div>
-        <p class="info-text"><strong>Tarih:</strong> <span id="tarihSaat"></span></p>
-        <p class="info-text"><strong>Mekan:</strong> <span id="salonAd"></span> - <span id="adres"></span></p>
-        
-        <a id="haritaLink" href="#" target="_blank" class="map-btn">📍 KONUMA GİT</a>
+        <div class="scroll-indicator">
+          AŞAĞI KAYDIR
+          <span>↓</span>
+        </div>
       </div>
+
+      <!-- AİLELER BÖLÜMÜ -->
+      <div class="section">
+        <div class="glass-card">
+          <div class="section-title">Ailelerimiz</div>
+          <div class="divider"></div>
+          <p class="info-text" style="margin-bottom: 12px;"><strong>Gelin Ailesi:</strong> <br><span id="gelinAilesi"></span></p>
+          <p class="info-text"><strong>Damat Ailesi:</strong> <br><span id="damatAilesi"></span></p>
+        </div>
+      </div>
+
+      <!-- DÜĞÜN AKIŞI BÖLÜMÜ -->
+      <div class="section">
+        <div class="glass-card">
+          <div class="section-title">Düğün Programı</div>
+          <div class="divider"></div>
+          <div class="timeline" id="programTimeline"></div>
+        </div>
+      </div>
+
+      <!-- TARİH & MEKAN BÖLÜMÜ -->
+      <div class="section">
+        <div class="glass-card">
+          <div class="section-title">Tarih & Mekan</div>
+          <div class="divider"></div>
+          <p class="info-text" style="margin-bottom: 10px;"><strong>Tarih:</strong> <br><span id="tarihSaat"></span></p>
+          <p class="info-text"><strong>Mekan:</strong> <br><span id="salonAd"></span> - <span id="adres"></span></p>
+          
+          <a id="haritaLink" href="#" target="_blank" class="map-btn">📍 HARİTADA GÖR / KONUM</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -249,13 +355,19 @@
       etkinlikTarihi: "2027-07-07T19:00:00",
       salonAd: "Boran Park Düğün Salonu",
       adres: "Ankara / Sincan",
-      program: "Giriş • Eğlenceli Oyunlar • Halay & Oyun Havası • Pasta Kesimi • Takı Töreni • After Party",
+      programMaddeleri: [
+        "Gelin & Damat Girişi",
+        "Eğlenceli Oyunlar",
+        "Halay & Oyun Havası",
+        "Pasta Kesimi",
+        "Takı Töreni",
+        "After Party & Bitiş"
+      ],
       haritaUrl: "https://www.google.com/maps/place/Boran+Park+Sincan+D%C3%BC%C4%9F%C3%BCn+Salonlar%C4%B1/@39.9511082,32.5378026,15z/data=!4m20!1m13!4m12!1m3!2m2!1d32.5451776!2d39.9540224!1m6!1m2!1s0x14d33bb7ebba2e65:0x19126fc6b5f9ef3f!2zQm9yYW4gUGFyayBTaW5jYW4gRMO8xJ_DvG4gU2Fsb25sYXLEsSwgWWVuacOnaW3Fn2l0LCDDh2ltxZ9pdCBTZXJwbWVsZXJpIE5vOjY1LCAwNjkzMCBTaW5jYW4vQW5rYXJh!2m2!1d32.553265!2d39.948195!3e0!3m5!1s0x14d33bb7ebba2e65:0x19126fc6b5f9ef3f!8m2!3d39.948195!4d32.553265!16s%2Fg%2F11p56g1qsw",
       
       solKapiGorsel: "https://i.ibb.co/NdXvJ2Fs/sol-kap-png.png",
       sagKapiGorsel: "https://i.ibb.co/bgNQ9S7h/sag-kap-png.png",
-      kartGorsel: "https://i.ibb.co/vx5B3FS3/kart-arkaplan-png.png",
-      muzikUrl: ""
+      kartGorsel: "https://i.ibb.co/vx5B3FS3/kart-arkaplan-png.png"
     };
 
     window.onload = () => {
@@ -266,14 +378,23 @@
       document.getElementById('tarihSaat').innerText = MUSTERI_BILGILERI.tarihSaat;
       document.getElementById('salonAd').innerText = MUSTERI_BILGILERI.salonAd;
       document.getElementById('adres').innerText = MUSTERI_BILGILERI.adres;
-      document.getElementById('program').innerText = MUSTERI_BILGILERI.program;
       document.getElementById('haritaLink').href = MUSTERI_BILGILERI.haritaUrl;
       
+      // Program Akışını Hazırla
+      const timelineContainer = document.getElementById('programTimeline');
+      MUSTERI_BILGILERI.programMaddeleri.forEach(madde => {
+        const item = document.createElement('div');
+        item.className = 'timeline-item';
+        item.innerText = madde;
+        timelineContainer.appendChild(item);
+      });
+
       document.getElementById('solKapi').style.backgroundImage = `url('${MUSTERI_BILGILERI.solKapiGorsel}')`;
       document.getElementById('sagKapi').style.backgroundImage = `url('${MUSTERI_BILGILERI.sagKapiGorsel}')`;
       document.getElementById('kartArkaplan').style.backgroundImage = `url('${MUSTERI_BILGILERI.kartGorsel}')`;
 
       geriSayimBaslat();
+      scrollAnimasyonuAyarla();
     };
 
     function davetiyeyiAc() {
@@ -300,13 +421,28 @@
       }, 1000);
     }
 
+    /* Sayfa Aşağı Kaydırıldıkça Kartların Belirmesi */
+    function scrollAnimasyonuAyarla() {
+      const scrollContainer = document.getElementById('kartArkaplan');
+      const cards = document.querySelectorAll('.glass-card');
+
+      scrollContainer.addEventListener('scroll', () => {
+        cards.forEach(card => {
+          const cardTop = card.getBoundingClientRect().top;
+          if (cardTop < window.innerHeight * 0.85) {
+            card.classList.add('visible');
+          }
+        });
+      });
+    }
+
     function kuslariUcur() {
       const canvas = document.getElementById('birdCanvas');
       const ctx = canvas.getContext('2d');
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
 
-      const birds = Array.from({ length: 12 }, () => ({
+      const birds = Array.from({ length: 14 }, () => ({
         x: canvas.width / 2,
         y: canvas.height / 2,
         vx: (Math.random() - 0.5) * 6,
