@@ -17,7 +17,6 @@
       overflow-x: hidden;
     }
 
-    /* Ana Konteyner */
     .envelope-container {
       position: relative;
       width: 90%;
@@ -26,7 +25,6 @@
       perspective: 1500px;
     }
 
-    /* 3D Kapılar */
     .door {
       position: absolute;
       top: 0;
@@ -49,11 +47,9 @@
       border-left: 1px solid rgba(255,255,255,0.2);
     }
 
-    /* Açık Kapı Durumu */
     .envelope-container.open .door-left { transform: rotateY(-130deg); }
     .envelope-container.open .door-right { transform: rotateY(130deg); }
 
-    /* İç Kart */
     .card {
       position: absolute;
       top: 0;
@@ -149,25 +145,23 @@
 
   <script>
     // ===================================================
-    // HER YENİ MÜŞTERİDE SADECE BURAYI DEĞİŞTİRECEKSİN!
+    // BİLGİLER VE DOĞRUDAN GÖRSEL LİNKLERİ GÜNCELLENDİ
     // ===================================================
     const MUSTERI_BILGILERI = {
-      gelinDamat: "Ahmet & Ayşe",
+      gelinDamat: "Emine & Özkan",
       tarihSaat: "25 Eylül 2026 - 19:00",
       salonAd: "Babil Salonu",
       adres: "Ankara",
-      haritaUrl: "https://maps.google.com", // Google Maps linki
+      haritaUrl: "https://maps.google.com",
       
-      // ImgBB'den aldığın 3 linki buradaki tırnakların içine yapıştır:
-      solKapiGorsel: "SOL_KAPI_LINKINI_BURAYA_YAPISTIR",
-      sagKapiGorsel: "SAG_KAPI_LINKINI_BURAYA_YAPISTIR",
-      kartGorsel: "IC_KART_LINKINI_BURAYA_YAPISTIR",
+      // ImgBB doğrudan resim bağlantıları (i.ibb.co):
+      solKapiGorsel: "https://i.ibb.co/7jrjwbc/sol.png", 
+      sagKapiGorsel: "https://i.ibb.co/C3qcYKw/sag.png", 
+      kartGorsel: "https://i.ibb.co/4Zyf8qH/kart.png", 
       
-      // Catbox'a yüklediğin müzik linki:
       muzikUrl: "https://files.catbox.moe/ORNEK.mp3"
     };
 
-    // OTOMATİK VERİ YÜKLEME
     window.onload = () => {
       document.getElementById('sayfaBasligi').innerText = MUSTERI_BILGILERI.gelinDamat + " Davetiye";
       document.getElementById('gelinDamat').innerText = MUSTERI_BILGILERI.gelinDamat;
